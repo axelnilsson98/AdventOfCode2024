@@ -47,10 +47,6 @@ pub fn part2(lines: Vec<String>) {
 }
 
 fn is_safe(v: &[i32]) -> bool {
-    if v.len() < 2 {
-        return true; // Single or empty reports are trivially safe
-    }
-
     let incr = v[0] > v[1];
 
     for i in 0..v.len()-1{
