@@ -2,32 +2,11 @@ use regex::Regex;
 
 pub fn part1(lines: Vec<String>) {
     let mut sum = 0;
-    let re = Regex::new(r"^mul\([0-9][0-9]?[0-9]?,[0-9][0-9]?[0-9]?\)").unwrap(); //[0-9][0-9]?[0-9]?,[0-9][0-9]?[0-9]?)
+    let re = Regex::new(r"mul\((\d{1,3}),(\d{1,3})\)").unwrap();
     let str = lines.join("");
-    for (i, c) in str.chars().enumerate() {
-        let temp = &str[i..];
-        if re.is_match(temp) {
-            let num1: i32;
-            let num2: i32;
-            let commaidx: usize;
-            match temp.find(",") {
-                Some(idx) => {
-                    commaidx = idx;
-                    num1 = temp[4..idx].parse().unwrap();
-                }
-                none => {
-                    continue;
-                }
-            }
-            match temp.find(")") {
-                Some(idx) => {
-                    num2 = temp[(commaidx + 1)..idx].parse().unwrap();
-                    sum = sum + num1 * num2;
-                }
-                none => {
-                    continue;
-                }
-            }
+    for caps in re.captures_iter(&str) {
+        if let (Some(n1), Some(n2)) = (caps.get(1), caps.get(2)) {
+            sum += n1.as_str().parse::<i32>().unwrap() * n2.as_str().parse::<i32>().unwrap();
         }
     }
     println!("{}", sum);
@@ -35,47 +14,35 @@ pub fn part1(lines: Vec<String>) {
 
 pub fn part2(lines: Vec<String>) {
     let mut go = true;
-    let mut sum = 0;
-    let re_mul = Regex::new(r"^mul\([0-9][0-9]?[0-9]?,[0-9][0-9]?[0-9]?\)").unwrap();
+    let mut sum: i64 = 0;
+    let re_mul = Regex::new(r"^mul\((\d{1,3}),(\d{1,3})\)").unwrap();
+    let re_command = Regex::new(r"^(don't\(\)|do\(\))").unwrap();
     let str = lines.join("");
-    for (i, c) in str.chars().enumerate() {
-        if go {
-            let temp = &str[i..];
-            if temp.starts_with("don't()") {
+    let mut i = 0;
+    while i < str.len() {
+        let temp = &str[i..];
+        if let Some(command_match) = re_command.find(temp) {
+            let command = &temp[command_match.start()..command_match.end()];
+            if command == "don't()" {
                 go = false;
-                continue;
-            }
-            if re_mul.is_match(temp) {
-                let num1: i32;
-                let num2: i32;
-                let commaidx: usize;
-                match temp.find(",") {
-                    Some(idx) => {
-                        commaidx = idx;
-                        num1 = temp[4..idx].parse().unwrap();
-                    }
-                    none => {
-                        continue;
-                    }
-                }
-                match temp.find(")") {
-                    Some(idx) => {
-                        num2 = temp[(commaidx + 1)..idx].parse().unwrap();
-                        sum = sum + num1 * num2;
-                    }
-                    none => {
-                        continue;
-                    }
-                }
-            }
-        }else{
-            let temp = &str[i..];
-            if temp.starts_with("do()") {
+            } else if command == "do()" {
                 go = true;
-                continue;
             }
-
+            i += command_match.end();
+            continue;
         }
+        if go {
+            if let Some(mul_match) = re_mul.captures(temp) {
+                if let (Some(n1), Some(n2)) = (mul_match.get(1), mul_match.get(2)) {
+                    sum +=
+                        n1.as_str().parse::<i64>().unwrap() * n2.as_str().parse::<i64>().unwrap();
+                }
+                i += mul_match.get(1).unwrap().end();
+                continue;
+
+            }
+        }
+        i += 1;
     }
     println!("{}", sum);
 }
