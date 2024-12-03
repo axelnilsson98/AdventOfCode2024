@@ -1,9 +1,10 @@
 #![allow(dead_code)]
 #![allow(unused_variables)]
+#![allow(unused_imports)]
 mod aoc24; 
 
 use std::fs::File;
-use std::io::{self, BufRead, BufReader};
+use std::io::{self, BufRead, BufReader, Read};
 
 fn main() -> io::Result<()>{
 
@@ -14,7 +15,7 @@ fn main() -> io::Result<()>{
         .map(|line| line.unwrap()) // Handle Result by unwrapping (use ? if errors should propagate)
         .collect();
 
-    aoc24::day3::part1(lines);
+    aoc24::day3::part2(lines);
     Ok(())
 
 }
