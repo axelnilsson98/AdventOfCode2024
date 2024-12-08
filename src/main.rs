@@ -17,7 +17,7 @@ fn main() -> io::Result<()>{
         .map(|line| line.unwrap()) // Handle Result by unwrapping (use ? if errors should propagate)
         .collect();
 
-    aoc24::day8::part1(lines);
+    aoc24::day8::part2(lines);
     Ok(())
 
 }
