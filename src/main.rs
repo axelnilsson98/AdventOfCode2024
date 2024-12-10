@@ -10,14 +10,14 @@ use std::io::{self, BufRead, BufReader, Read};
 
 fn main() -> io::Result<()>{
 
-    let file_path: &str = "/home/axel/Documents/games/aoc24/src/input/day9.txt";
+    let file_path: &str = "/home/axel/Documents/games/aoc24/src/input/day10.txt";
     let file: File = File::open(file_path)?;
     let reader: BufReader<File> = io::BufReader::new(file);
     let lines: Vec<String> = reader.lines()
         .map(|line| line.unwrap()) // Handle Result by unwrapping (use ? if errors should propagate)
         .collect();
 
-    aoc24::day9::part1(lines);
+    aoc24::day10::part1(lines);
     Ok(())
 
 }
