@@ -1,4 +1,4 @@
-use std::{collections::{HashSet, VecDeque}, hash::Hash};
+use std::collections::{HashSet, VecDeque};
 
 pub fn part1(lines: Vec<String>) {
     let map: Vec<Vec<char>> = lines
@@ -7,7 +7,6 @@ pub fn part1(lines: Vec<String>) {
         .collect();
     let mut visited: HashSet<(usize, usize)> = HashSet::new();
     let mut local_visited: HashSet<(usize, usize)> = HashSet::new();
-    let mut fences = 0;
     let mut current_plot: HashSet<(usize, usize)> = HashSet::new();
     let mut current_char: char = '0';
     let mut to_visit: Vec<(usize, usize)> = Vec::new();

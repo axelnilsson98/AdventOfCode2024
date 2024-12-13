@@ -1,13 +1,7 @@
 use std::{
-    char,
-    collections::{hash_set, HashSet},
-    hash::Hash,
-    ptr::null,
+    collections::HashSet,
     usize,
 };
-
-use itertools::Combinations;
-
 pub fn part1(lines: Vec<String>) {
     let map: Vec<Vec<usize>> = lines
         .iter()

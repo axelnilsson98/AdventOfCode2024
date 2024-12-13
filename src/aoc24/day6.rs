@@ -50,7 +50,7 @@ fn turn_right(dir: (i32, i32)) -> (i32, i32) {
 }
 pub fn part2(lines: Vec<String>) {
     let mut pos: (usize, usize) = (0, 0);
-    let mut dir: (i32, i32) = (-1, 0);
+    let dir: (i32, i32) = (-1, 0);
 
     let map: Vec<Vec<bool>> = lines.iter().enumerate().map(|(i, line)| {
         line.chars().enumerate().map(|(j, char)| {

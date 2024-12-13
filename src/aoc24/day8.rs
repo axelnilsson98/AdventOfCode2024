@@ -1,4 +1,4 @@
-use std::{collections::HashSet, process::id, usize};
+use std::{collections::HashSet, usize};
 
 pub fn part1(lines: Vec<String>) {
     let mut map: Vec<(char, usize, usize)> = Vec::new();
@@ -17,10 +17,10 @@ pub fn part1(lines: Vec<String>) {
     let mut found: HashSet<(i32, i32)> = HashSet::new();
     for freq in freq_set {
         let temp_map: Vec<&(char, usize, usize)> =
-            map.iter().filter(|(char, i, j)| *char == freq).collect();
-        for (k, (c1, i1, j1)) in temp_map.iter().enumerate() {
+            map.iter().filter(|(char, _i, _j)| *char == freq).collect();
+        for (k, (_c1, i1, j1)) in temp_map.iter().enumerate() {
             for l in (k + 1)..temp_map.len() {
-                let (c2, i2, j2) = temp_map[l];
+                let (_c2, i2, j2) = temp_map[l];
                 let idiff: i32 = *i2 as i32 - *i1 as i32;
                 let jdiff: i32 = *j2 as i32 - *j1 as i32;
                 let i3: i32 = *i1 as i32 - idiff;
@@ -61,7 +61,7 @@ pub fn part2(lines: Vec<String>) {
     let mut found: HashSet<(i32, i32)> = HashSet::new();
     for freq in freq_set {
         let temp_map: Vec<&(char, usize, usize)> =
-            map.iter().filter(|(char, i, j)| *char == freq).collect();
+            map.iter().filter(|(char, _i, _j)| *char == freq).collect();
         for (k, (_, i1, j1)) in temp_map.iter().enumerate() {
             for l in (k + 1)..temp_map.len() {
                 let (_, i2, j2) = temp_map[l];

@@ -1,7 +1,5 @@
-use core::panic;
 use std::{
     collections::{HashMap, HashSet},
-    ops::Index,
     usize,
 };
 
@@ -9,7 +7,7 @@ pub fn part1(lines: Vec<String>) {
     if let Some(index) = lines.iter().position(|s| s == "") {
         let mut rules: HashMap<i32, Vec<i32>> = HashMap::new();
         let rules_lines = &lines[0..index]; 
-        for (i, rule) in rules_lines.iter().enumerate() {
+        for rule in rules_lines.iter() {
             let nums: Vec<i32> = rule
                 .split('|')
                 .map(|x| x.parse::<i32>().unwrap())
@@ -20,13 +18,13 @@ pub fn part1(lines: Vec<String>) {
         let mut sum = 0;
         let prints = &lines[index+1..];
   
-        for (i, print) in prints.iter().enumerate() {
+        for print in prints.iter() {
             let pages: Vec<i32> = print
                 .split(',')
                 .map(|x| x.parse::<i32>().unwrap())
                 .collect();
             let mut correct = true;
-            for (j, page) in pages.iter().enumerate().rev() {
+            for _ in pages.iter().rev() {
                 if find_incorrect(&pages, &rules) != (usize::max_value(), usize::max_value()) {
                     correct = false;
                     break;

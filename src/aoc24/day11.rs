@@ -1,7 +1,5 @@
-use core::num;
 use std::{
-    collections::{HashMap, VecDeque},
-    hash::Hash,
+    collections::HashMap,
     usize,
 };
 
@@ -9,11 +7,10 @@ pub fn part1(lines: Vec<String>) {
     let num_iter = 75;
     let mut current_numbers: Vec<i64> = lines[0].split(" ").map(|x| x.parse().unwrap()).collect();
     let mut new_numbers: Vec<i64> = Vec::new();
-    // println!("{:?}", current_numbers);
 
     for i in 0..num_iter {
         println!("{}", i);
-        new_numbers = Vec::new();
+        new_numbers.clear();
         for num in &current_numbers {
             if *num == 0 {
                 new_numbers.push(1);
@@ -30,7 +27,7 @@ pub fn part1(lines: Vec<String>) {
             }
             new_numbers.push(num * 2024);
         }
-        current_numbers = new_numbers;
+        current_numbers = new_numbers.clone();
     }
 
     println!("{}", current_numbers.len());
@@ -45,8 +42,8 @@ pub fn part2(lines: Vec<String>) {
 
     let mut new_numbers: HashMap<i64, usize> = HashMap::new();
 
-    for i in 0..num_iter {
-        new_numbers = HashMap::new();
+    for _ in 0..num_iter {
+        new_numbers.clear();
         for (num, nbrof) in &current_numbers {
             if *num == 0 {
                 let new_val = get_or_else(&new_numbers, 1);
@@ -67,7 +64,7 @@ pub fn part2(lines: Vec<String>) {
             let new_val = get_or_else(&new_numbers, num*2024);
             new_numbers.insert(num*2024, new_val+nbrof);
     }
-        current_numbers = new_numbers;
+        current_numbers = new_numbers.clone();
     }
     let mut sum = 0;
     current_numbers.iter().for_each(|(_, numi)| sum += numi);
