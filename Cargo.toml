@@ -7,5 +7,6 @@ edition = "2021"
 regex = "1.9"
 itertools = "0.13.0"
 rayon = "1.7"
+nalgebra = "0.32"
 
 
