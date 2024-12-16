@@ -1,14 +1,12 @@
-use std::collections::HashSet;
-use std::time::Duration;
-use std::{io, thread};
+use std::io;
 
-static max_x: i32 = 101;
-static max_y: i32 = 103;
+static MAX_X: i32 = 101;
+static MAX_Y: i32 = 103;
 pub fn part1(lines: Vec<String>) {
     // let max_x: i32 = 101;
-    let mid_x = max_x / 2;
+    let mid_x = MAX_X / 2;
     // let max_y = 103;
-    let mid_y = max_y / 2;
+    let mid_y = MAX_Y / 2;
     let mut quadrants = vec![0, 0, 0, 0];
     for line in lines {
         let nums: Vec<i32> = line
@@ -21,8 +19,8 @@ pub fn part1(lines: Vec<String>) {
             .collect();
 
         let new_pos = (
-            (nums[0] + nums[2] * 100).rem_euclid(max_x),
-            (nums[1] + nums[3] * 100).rem_euclid(max_y),
+            (nums[0] + nums[2] * 100).rem_euclid(MAX_X),
+            (nums[1] + nums[3] * 100).rem_euclid(MAX_Y),
         );
         // println!("{:?}", new_pos);
         if new_pos.0 < mid_x && new_pos.1 < mid_y {
@@ -56,9 +54,9 @@ pub fn part2(lines: Vec<String>) {
     let mut nums: Vec<i32>;
     let mut map: Vec<Vec<Vec<(i32, i32)>>> = Vec::new();
 
-    for x in 0..max_x as usize {
+    for x in 0..MAX_X as usize {
         map.push(Vec::new());
-        for _ in 0..max_y {
+        for _ in 0..MAX_Y {
             map[x].push(Vec::new());
         }
     }
@@ -120,9 +118,9 @@ fn is_tree(map: &Vec<Vec<Vec<(i32, i32)>>>) -> bool {
 fn step(map: &Vec<Vec<Vec<(i32, i32)>>>) -> Vec<Vec<Vec<(i32, i32)>>> {
     let mut new_map: Vec<Vec<Vec<(i32, i32)>>> = Vec::new();
 
-    for x in 0..max_x as usize {
+    for x in 0..MAX_X as usize {
         new_map.push(Vec::new());
-        for _ in 0..max_y {
+        for _ in 0..MAX_Y {
             new_map[x].push(Vec::new());
         }
     }
@@ -132,8 +130,8 @@ fn step(map: &Vec<Vec<Vec<(i32, i32)>>>) -> Vec<Vec<Vec<(i32, i32)>>> {
                 continue;
             } else {
                 for elem in elems {
-                    new_map[(x as i32 + elem.0).rem_euclid(max_x) as usize]
-                        [(y as i32 + elem.1).rem_euclid(max_y) as usize]
+                    new_map[(x as i32 + elem.0).rem_euclid(MAX_X) as usize]
+                        [(y as i32 + elem.1).rem_euclid(MAX_Y) as usize]
                         .push(*elem);
                 }
             }
