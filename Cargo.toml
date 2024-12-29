@@ -9,7 +9,6 @@ itertools = "0.13.0"
 rayon = "1.7"
 nalgebra = "0.32"
 rand = "0.8.5"
-
-
-
-
+indexmap = "2.7"
+memoize = "0.4.2"
+z3 = "0.12.1"
